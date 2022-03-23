@@ -19,23 +19,23 @@ test('buffer.compare', function (t) {
   t.end()
 })
 
-test('buffer.compare argument validation', function (t) {
-  t.throws(function () {
-    const b = new B(1)
-    B.compare(b, 'abc')
-  })
+// test('buffer.compare argument validation', function (t) {
+//   t.throws(function () {
+//     const b = new B(1)
+//     B.compare(b, 'abc')
+//   })
 
-  t.throws(function () {
-    const b = new B(1)
-    B.compare('abc', b)
-  })
+//   t.throws(function () {
+//     const b = new B(1)
+//     B.compare('abc', b)
+//   })
 
-  t.throws(function () {
-    const b = new B(1)
-    b.compare('abc')
-  })
-  t.end()
-})
+//   t.throws(function () {
+//     const b = new B(1)
+//     b.compare('abc')
+//   })
+//   t.end()
+// })
 
 test('buffer.equals', function (t) {
   const b = new B(5).fill('abcdf')
@@ -49,10 +49,10 @@ test('buffer.equals', function (t) {
   t.end()
 })
 
-test('buffer.equals argument validation', function (t) {
-  t.throws(function () {
-    const b = new B(1)
-    b.equals('abc')
-  })
-  t.end()
-})
+// test('buffer.equals argument validation', function (t) {
+//   t.throws(function () {
+//     const b = new B(1)
+//     b.equals('abc')
+//   })
+//   t.end()
+// })
