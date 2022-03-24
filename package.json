@@ -37,7 +37,8 @@
     "base256-encoding": "^1.1.2",
     "hex-encoding": "^1.0.0",
     "radix64-encoding": "^1.0.2",
-    "uint8-encoding": "^1.0.0"
+    "uint8-encoding": "^1.0.0",
+    "utf16le-encoding": "^1.0.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.4",

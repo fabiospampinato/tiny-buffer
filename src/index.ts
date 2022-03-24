@@ -6,8 +6,9 @@ import Latin1 from 'base256-encoding';
 import Hex from 'hex-encoding';
 import Base64 from 'radix64-encoding';
 import Utf8 from 'uint8-encoding';
+import Utf16le from 'utf16le-encoding';
 import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
-import {swap, utf8chop} from './utils';
+import {swap, utf8chop, utf16chop} from './utils';
 import {Encoding, Filler, Input, TypedArray, Serialized} from './types';
 
 /* MAIN */
@@ -55,6 +56,12 @@ class Buffer extends Uint8Array {
       } else if ( encoding === 'hex' ) {
 
         const buffer = Hex.decode ( input );
+
+        super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
+
+      } else if ( encoding === 'utf16le' || encoding === 'utf-16le' || encoding === 'ucs2' || encoding === 'ucs-2' ) {
+
+        const buffer = Utf16le.decode ( input );
 
         super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
 
@@ -164,6 +171,10 @@ class Buffer extends Uint8Array {
 
         return Math.ceil ( input.length / 2 );
 
+      } else if ( encoding === 'utf16le' || encoding === 'utf-16le' || encoding === 'ucs2' || encoding === 'ucs-2' ) {
+
+        return input.length * 2;
+
       } else {
 
         throw new Error ( 'Invalid encoding' );
@@ -260,7 +271,7 @@ class Buffer extends Uint8Array {
 
   static isEncoding ( value: unknown ): value is Encoding {
 
-    return value === 'ascii' || value === 'base64' || value === 'binary' || value === 'hex' || value === 'latin1' || value === 'utf8' || value === 'utf-8';
+    return value === 'ascii' || value === 'base64' || value === 'binary' || value === 'hex' || value === 'latin1' || value === 'utf8' || value === 'utf-8' || value === 'utf16le' || value === 'utf-16le' || value === 'ucs2' || value === 'ucs-2';
 
   }
 
@@ -881,6 +892,10 @@ class Buffer extends Uint8Array {
 
         return Latin1.encode ( ascii );
 
+      } else if ( encoding === 'utf16le' || encoding === 'utf-16le' || encoding === 'ucs2' || encoding === 'ucs-2' ) {
+
+        return Utf16le.encode ( this );
+
       } else {
 
         throw new Error ( 'Invalid encoding' );
@@ -896,9 +911,10 @@ class Buffer extends Uint8Array {
     length = Math.min ( length, this.length - offset );
 
     const isUTF8 = ( encoding === undefined ) || encoding === 'utf8' || encoding === 'utf-8';
-    const stringChopped = isUTF8 ? string.slice ( 0, length ) : string; // Potentially skipping some unnecessary decoding
+    const isUTF16 = !isUTF8 && ( encoding === 'utf16le' || encoding === 'utf-16le' || encoding === 'ucs2' || encoding === 'ucs-2' );
+    const stringChopped = ( isUTF8 || isUTF16 ) ? string.slice ( 0, length ) : string; // Potentially skipping some unnecessary decoding
     const bufferRaw = new Buffer ( stringChopped, encoding );
-    const bufferChopped = isUTF8 ? utf8chop ( bufferRaw, length ) : bufferRaw; // Avoiding writing invalid code points
+    const bufferChopped = isUTF8 ? utf8chop ( bufferRaw, length ) : ( isUTF16 ? utf16chop ( bufferRaw, length ) : bufferRaw ); // Avoiding writing invalid code points
     const buffer = bufferChopped;
 
     length = Math.min ( length, buffer.length );

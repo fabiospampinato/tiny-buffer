@@ -53,6 +53,18 @@ const utf8chop = ( buffer: Uint8Array, maxLength: number ): Uint8Array => { // T
 
 };
 
+const utf16chop = ( buffer: Uint8Array, maxLength: number ): Uint8Array => { // This function chops a utf16 buffer to have at max "maxLength" length, without chopping in the middle of code points
+
+  if ( buffer.length > maxLength ) {
+
+    return buffer.subarray ( 0, maxLength - ( maxLength % 2 ) );
+
+  }
+
+  return buffer;
+
+};
+
 /* EXPORT */
 
-export {swap, utf8chop};
+export {swap, utf8chop, utf16chop};
