@@ -642,7 +642,7 @@ class Buffer extends Uint8Array {
 
   }
 
-  writeBigInt64LE ( value: bigint, offset: number ): number { //TODO: Variable byte length here maybe, maybe the +8 there is not right
+  writeBigInt64LE ( value: bigint, offset: number ): number {
 
     this.setBigInt64 ( offset, value, true );
 
@@ -658,7 +658,7 @@ class Buffer extends Uint8Array {
 
   }
 
-  writeBigUInt64LE ( value: bigint, offset: number ): number { //TODO: Variable byte length here maybe, maybe the +8 there is not right
+  writeBigUInt64LE ( value: bigint, offset: number ): number {
 
     this.setBigUint64 ( offset, value, true );
 
