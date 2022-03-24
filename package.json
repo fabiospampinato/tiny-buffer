@@ -32,7 +32,6 @@
     "browser"
   ],
   "dependencies": {
-    "@fabiospampinato/is": "^1.4.0",
     "base256-encoding": "^1.1.2",
     "hex-encoding": "^1.0.0",
     "radix64-encoding": "^1.0.2",

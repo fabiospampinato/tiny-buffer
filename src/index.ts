@@ -1,7 +1,6 @@
 
 /* IMPORT */
 
-import {isArrayLike, isDataView, isNumber, isPlainObject, isTypedArray} from '@fabiospampinato/is';
 import Latin1 from 'base256-encoding';
 import Hex from 'hex-encoding';
 import Base64 from 'radix64-encoding';
@@ -73,9 +72,9 @@ class Buffer extends Uint8Array {
 
     } else if ( input instanceof ArrayBuffer || ( HAS_SHARED_ARRAY_BUFFER && input instanceof SharedArrayBuffer ) ) {
 
-      if ( isNumber ( option1 ) ) {
+      if ( typeof option1 === 'number' ) {
 
-        if ( isNumber ( option2 ) ) {
+        if ( typeof option2 === 'number' ) {
 
           super ( input, option1, option2 );
 
@@ -91,21 +90,21 @@ class Buffer extends Uint8Array {
 
       }
 
-    } else if ( isTypedArray ( input ) ) {
-
-      super ( input );
-
-    } else if ( isDataView ( input ) ) {
+    } else if ( input instanceof DataView ) {
 
       super ( input.buffer, input.byteOffset, input.byteLength );
 
-    } else if ( isArrayLike ( input ) ) {
+    } else if ( ArrayBuffer.isView ( input ) ) {
+
+      super ( input );
+
+    } else if ( Array.isArray ( input ) ) {
 
       const buffer = Uint8Array.from ( input );
 
       super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
 
-    } else if ( isPlainObject ( input ) && input.type === 'Buffer' && isArrayLike ( input.data ) ) {
+    } else if ( input && 'type' in input && input.type === 'Buffer' && 'data' in input && Array.isArray ( input.data ) ) {
 
       const buffer = Uint8Array.from ( input.data );
 
@@ -200,7 +199,7 @@ class Buffer extends Uint8Array {
 
       }
 
-    } else if ( input instanceof ArrayBuffer || ( HAS_SHARED_ARRAY_BUFFER && input instanceof SharedArrayBuffer ) || isTypedArray ( input ) || isDataView ( input ) ) {
+    } else if ( input instanceof ArrayBuffer || ( HAS_SHARED_ARRAY_BUFFER && input instanceof SharedArrayBuffer ) || ArrayBuffer.isView ( input ) ) {
 
       return input.byteLength;
 
