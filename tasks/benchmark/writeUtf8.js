@@ -1,4 +1,4 @@
-var BrowserBuffer = require('../').Buffer // (this module)
+var TinyBuffer = require('../').Buffer // (this module)
 var util = require('./util')
 var suite = util.suite()
 
@@ -6,15 +6,15 @@ var LENGTH = 9
 var singleByte = 'abcdefghi'
 var multiByte = '\u0610' + '\u6100' + '\uD944\uDC00'
 
-var browserBuffer = new BrowserBuffer(LENGTH)
+var tinyBuffer = new TinyBuffer(LENGTH)
 var nodeBuffer = Buffer.alloc(LENGTH)
 
 suite
-  .add('BrowserBuffer#singleByte', function () {
-    browserBuffer.write(singleByte)
+  .add('TinyBuffer#singleByte', function () {
+    tinyBuffer.write(singleByte)
   })
-  .add('BrowserBuffer#multiByte', function () {
-    browserBuffer.write(multiByte)
+  .add('TinyBuffer#multiByte', function () {
+    tinyBuffer.write(multiByte)
   })
 
 if (!process.browser) suite

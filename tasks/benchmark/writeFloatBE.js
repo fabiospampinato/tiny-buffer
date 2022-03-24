@@ -1,18 +1,18 @@
-var BrowserBuffer = require('../').Buffer // (this module)
+var TinyBuffer = require('../').Buffer // (this module)
 var util = require('./util')
 var suite = util.suite()
 
 var LENGTH = 160
 
-var browserBuffer = new BrowserBuffer(LENGTH * 4)
+var tinyBuffer = new TinyBuffer(LENGTH * 4)
 var typedarray = new Uint8Array(LENGTH * 4)
 var dataview = new DataView(typedarray.buffer)
 var nodeBuffer = Buffer.alloc(LENGTH * 4)
 
 suite
-  .add('BrowserBuffer#writeFloatBE', function () {
+  .add('TinyBuffer#writeFloatBE', function () {
     for (var i = 0; i < LENGTH; i++) {
-      browserBuffer.writeFloatBE(97.1919 + i, i * 4)
+      tinyBuffer.writeFloatBE(97.1919 + i, i * 4)
     }
   })
   .add('DataView#setFloat32', function () {

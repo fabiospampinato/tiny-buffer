@@ -1,16 +1,16 @@
-var BrowserBuffer = require('../').Buffer // (this module)
+var TinyBuffer = require('../').Buffer // (this module)
 var util = require('./util')
 var suite = util.suite()
 
 var LENGTH = 50
-var browserBuffer = new BrowserBuffer(LENGTH)
+var tinyBuffer = new TinyBuffer(LENGTH)
 var typedarray = new Uint8Array(LENGTH)
 var nodeBuffer = Buffer.alloc(LENGTH)
 
 suite
-  .add('BrowserBuffer#bracket-notation', function () {
+  .add('TinyBuffer#bracket-notation', function () {
     for (var i = 0; i < LENGTH; i++) {
-      browserBuffer[i] = i + 97
+      tinyBuffer[i] = i + 97
     }
   })
   .add('Uint8Array#bracket-notation', function () {
