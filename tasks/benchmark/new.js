@@ -14,5 +14,5 @@ suite
 
 if (!process.browser) suite
   .add('NodeBuffer#new(' + LENGTH + ')', function () {
-    var buf = new Buffer(LENGTH)
+    var buf = Buffer.alloc(LENGTH)
   })

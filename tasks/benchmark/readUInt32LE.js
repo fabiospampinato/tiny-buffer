@@ -7,7 +7,7 @@ var LENGTH = 160
 var browserBuffer = new BrowserBuffer(LENGTH * 4)
 var typedarray = new Uint8Array(LENGTH * 4)
 var dataview = new DataView(typedarray.buffer)
-var nodeBuffer = new Buffer(LENGTH * 4)
+var nodeBuffer = Buffer.alloc(LENGTH * 4)
 
 ;[browserBuffer, nodeBuffer].forEach(function (buf) {
   for (var i = 0; i < LENGTH; i++) {

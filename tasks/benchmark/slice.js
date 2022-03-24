@@ -6,7 +6,7 @@ var LENGTH = 160
 
 var browserBuffer = new BrowserBuffer(LENGTH)
 var typedarray = new Uint8Array(LENGTH)
-var nodeBuffer = new Buffer(LENGTH)
+var nodeBuffer = Buffer.alloc(LENGTH)
 
 suite
   .add('BrowserBuffer#slice', function () {

@@ -7,7 +7,7 @@ var singleByte = 'abcdefghi'
 var multiByte = '\u0610' + '\u6100' + '\uD944\uDC00'
 
 var browserBuffer = new BrowserBuffer(LENGTH)
-var nodeBuffer = new Buffer(LENGTH)
+var nodeBuffer = Buffer.alloc(LENGTH)
 
 suite
   .add('BrowserBuffer#singleByte', function () {

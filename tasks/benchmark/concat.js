@@ -7,8 +7,8 @@ var browserBuffer = new BrowserBuffer(LENGTH)
 var browserBuffer2 = new BrowserBuffer(LENGTH)
 var typedarray = new Uint8Array(LENGTH)
 var typedarray2 = new Uint8Array(LENGTH)
-var nodeBuffer = new Buffer(LENGTH)
-var nodeBuffer2 = new Buffer(LENGTH)
+var nodeBuffer = Buffer.alloc(LENGTH)
+var nodeBuffer2 = Buffer.alloc(LENGTH)
 
 ;[browserBuffer, browserBuffer2, typedarray, typedarray2, nodeBuffer, nodeBuffer2].forEach(function (buf) {
   for (var i = 0; i < LENGTH; i++) {

@@ -6,11 +6,11 @@ var LENGTH = 16
 
 var browserSubject = new BrowserBuffer(LENGTH)
 var typedarraySubject = new Uint8Array(LENGTH)
-var nodeSubject = new Buffer(LENGTH)
+var nodeSubject = Buffer.alloc(LENGTH)
 
 var browserTarget = new BrowserBuffer(LENGTH)
 var typedarrayTarget = new Uint8Array(LENGTH)
-var nodeTarget = new Buffer(LENGTH)
+var nodeTarget = Buffer.alloc(LENGTH)
 
 suite
   .add('BrowserBuffer#copy(' + LENGTH + ')', function () {
