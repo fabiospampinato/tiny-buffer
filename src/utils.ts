@@ -25,6 +25,16 @@ const getLastUtf8CodepointLength = ( buffer: Uint8Array ): 0 | 1 | 2 | 3 | 4 => 
 
 };
 
+const swap = ( buffer: Uint8Array, a: number, b: number ): void => {
+
+  const itemA = buffer[a];
+  const itemB = buffer[b];
+
+  buffer[a] = itemB;
+  buffer[b] = itemA;
+
+};
+
 const utf8chop = ( buffer: Uint8Array, maxLength: number ): Uint8Array => { // This function chops a utf8 buffer to have at max "maxLength" length, without chopping in the middle of code points
 
   if ( buffer.length > ( maxLength + 8 ) ) { // Potential huge quick trimming
@@ -45,4 +55,4 @@ const utf8chop = ( buffer: Uint8Array, maxLength: number ): Uint8Array => { // T
 
 /* EXPORT */
 
-export {utf8chop};
+export {swap, utf8chop};

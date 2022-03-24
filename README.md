@@ -21,7 +21,6 @@ This implementation has the following differences and characteristics compared t
 - The following funtions work just like in a `Uint8Array`, meaning they don't support strings: `includes`, `indexOf`, `lastIndexOf`.
 - The following functions are not implemented: `readIntBE`, `readIntLE`, `readUIntBE`, `readUIntLE`.
 - The following functions are not implemented: `writeIntBE`, `writeIntLE`, `writeUIntBE`, `writeUIntLE`.
-- The following functions are not implemented: `swap16`, `swap32`, `swap64`.
 - The following properties are not implemented: `parent`, `poolSize`.
 
 Other than that it should work identically, with good performance, everywhere.

@@ -7,7 +7,7 @@ import Hex from 'hex-encoding';
 import Base64 from 'radix64-encoding';
 import Utf8 from 'uint8-encoding';
 import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
-import {utf8chop} from './utils';
+import {swap, utf8chop} from './utils';
 import {Encoding, Filler, Input, TypedArray, Serialized} from './types';
 
 /* MAIN */
@@ -785,6 +785,52 @@ class Buffer extends Uint8Array {
     const buffer = super.subarray ( start, end );
 
     return new Buffer ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
+
+  }
+
+  swap16 (): this {
+
+    if ( this.length % 2 ) throw new Error ( 'Buffer size must be a multiple of 16-bits' );
+
+    for ( let i = 0, l = this.length; i < l; i += 2 ) {
+
+      swap ( this, i, i + 1 );
+
+    }
+
+    return this;
+
+  }
+
+  swap32 (): this {
+
+    if ( this.length % 4 ) throw new Error ( 'Buffer size must be a multiple of 32-bits' );
+
+    for ( let i = 0, l = this.length; i < l; i += 4 ) {
+
+      swap ( this, i, i + 3 );
+      swap ( this, i + 1, i + 2 );
+
+    }
+
+    return this;
+
+  }
+
+  swap64 (): this {
+
+    if ( this.length % 8 ) throw new Error ( 'Buffer size must be a multiple of 64-bits' );
+
+    for ( let i = 0, l = this.length; i < l; i += 8 ) {
+
+      swap ( this, i, i + 7 );
+      swap ( this, i + 1, i + 6 );
+      swap ( this, i + 2, i + 5 );
+      swap ( this, i + 3, i + 4 );
+
+    }
+
+    return this;
 
   }
 
