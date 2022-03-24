@@ -113,7 +113,26 @@ class Buffer extends Uint8Array {
 
     } else {
 
-      throw new Error ( 'Invalid input' );
+      const valueOf = input && input.valueOf && input.valueOf ();
+      const toPrimitive = input && input[Symbol.toPrimitive];
+
+      if ( valueOf !== null && valueOf !== undefined && valueOf !== input ) {
+
+        const buffer = new Buffer ( valueOf as any, option1 as any, option2 as any ); //TSC
+
+        super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
+
+      } else if ( typeof toPrimitive === 'function' ) {
+
+        const buffer = new Buffer ( toPrimitive ( 'string' ), option1 as any, option2 as any ) //TSC
+
+        super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
+
+      } else {
+
+        throw new Error ( 'Invalid input' );
+
+      }
 
     }
 
