@@ -142,9 +142,43 @@ class Buffer extends Uint8Array {
 
   }
 
-  static byteLength ( input: string, encoding?: Encoding ): number { //TODO: Optimize this
+  static byteLength ( input: string | ArrayBuffer | SharedArrayBuffer | DataView | TypedArray, encoding?: Encoding ): number {
 
-    return new Buffer ( input, encoding ).length;
+    if ( typeof input === 'string' ) {
+
+      encoding = encoding || 'utf8';
+
+      if ( encoding === 'utf8' || encoding === 'utf-8' ) {
+
+        return Utf8.encode ( input ).byteLength;
+
+      } else if ( encoding === 'ascii' || encoding === 'latin1' || encoding === 'binary' ) {
+
+        return input.length;
+
+      } else if ( encoding === 'base64' ) {
+
+        return Base64.decode ( input ).byteLength;
+
+      } else if ( encoding === 'hex' ) {
+
+        return Math.ceil ( input.length / 2 );
+
+      } else {
+
+        throw new Error ( 'Invalid encoding' );
+
+      }
+
+    } else if ( input instanceof ArrayBuffer || ( HAS_SHARED_ARRAY_BUFFER && input instanceof SharedArrayBuffer ) || isTypedArray ( input ) || isDataView ( input ) ) {
+
+      return input.byteLength;
+
+    } else {
+
+      throw new Error ( 'Invalid input' );
+
+    }
 
   }
 
