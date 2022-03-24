@@ -10,8 +10,7 @@
     "compile": "tsc --skipLibCheck",
     "compile:watch": "tsc --skipLibCheck --watch",
     "test:buffer": "tape test/buffer/*.js",
-    "test:native": "tape test/native/index.js",
-    "test": "npm run test:buffer && npm run test:native",
+    "test": "npm run test:buffer",
     "prepublishOnly": "npm run clean && npm run compile && npm run test"
   },
   "bugs": {
