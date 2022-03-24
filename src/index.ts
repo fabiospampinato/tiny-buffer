@@ -8,7 +8,7 @@ import Base64 from 'radix64-encoding';
 import Utf8 from 'uint8-encoding';
 import Utf16le from 'utf16le-encoding';
 import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
-import {swap, utf8chop, utf16chop} from './utils';
+import {castEncoding, swap, utf8chop, utf16chop} from './utils';
 import {Encoding, Filler, Input, TypedArray, Serialized} from './types';
 
 /* MAIN */
@@ -33,7 +33,7 @@ class Buffer extends Uint8Array {
 
     } else if ( typeof input === 'string' ) {
 
-      const encoding = option1 || 'utf8';
+      const encoding = castEncoding ( option1 );
 
       if ( encoding === 'utf8' || encoding === 'utf-8' ) {
 
@@ -172,7 +172,7 @@ class Buffer extends Uint8Array {
 
     if ( typeof input === 'string' ) {
 
-      encoding = encoding || 'utf8';
+      encoding = castEncoding ( encoding );
 
       if ( encoding === 'utf8' || encoding === 'utf-8' ) {
 
@@ -873,13 +873,13 @@ class Buffer extends Uint8Array {
 
   }
 
-  toLocalString ( encoding: Encoding = 'utf8', start?: number, end?: number ): string {
+  toLocalString ( encoding?: Encoding, start?: number, end?: number ): string {
 
     return this.toString ( encoding, start, end );
 
   }
 
-  toString ( encoding: Encoding = 'utf8', start?: number, end?: number ): string {
+  toString ( encoding?: Encoding, start?: number, end?: number ): string {
 
     if ( typeof start === 'number' && ( start !== 0 || ( typeof end === 'number' && end < this.length ) ) ) {
 
@@ -888,6 +888,8 @@ class Buffer extends Uint8Array {
       return this.toString.call ( buffer, encoding );
 
     } else {
+
+      encoding = castEncoding ( encoding );
 
       if ( encoding === 'utf8' || encoding === 'utf-8' ) {
 
@@ -929,7 +931,9 @@ class Buffer extends Uint8Array {
 
     length = Math.min ( length, this.length - offset );
 
-    const isUTF8 = ( encoding === undefined ) || encoding === 'utf8' || encoding === 'utf-8';
+    encoding = castEncoding ( encoding );
+
+    const isUTF8 = ( encoding === 'utf8' || encoding === 'utf-8' );
     const isUTF16 = !isUTF8 && ( encoding === 'utf16le' || encoding === 'utf-16le' || encoding === 'ucs2' || encoding === 'ucs-2' );
     const stringChopped = ( isUTF8 || isUTF16 ) ? string.slice ( 0, length ) : string; // Potentially skipping some unnecessary decoding
     const bufferRaw = new Buffer ( stringChopped, encoding );

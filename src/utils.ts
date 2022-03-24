@@ -1,7 +1,24 @@
 
+/* IMPORT */
+
+import {DEFAULT_ENCODING} from './constants';
+import {Encoding} from './types';
+
 /* MAIN */
 
-//TODO: Publish these as standalone modules
+const castEncoding = ( encoding?: unknown ): Encoding => {
+
+  if ( typeof encoding === 'string' ) {
+
+    return encoding.toLowerCase () as Encoding; // Lowercasing for broader compatibility
+
+  } else {
+
+    return DEFAULT_ENCODING;
+
+  }
+
+};
 
 const getLastUtf8CodepointLength = ( buffer: Uint8Array ): 0 | 1 | 2 | 3 | 4 => { // This function gets the length of the last utf8 codepoint in bytes
 
@@ -67,4 +84,4 @@ const utf16chop = ( buffer: Uint8Array, maxLength: number ): Uint8Array => { // 
 
 /* EXPORT */
 
-export {swap, utf8chop, utf16chop};
+export {castEncoding, swap, utf8chop, utf16chop};

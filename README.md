@@ -12,7 +12,6 @@ This implementation has the following differences and characteristics compared t
 - It still uses Node's Buffer under the hood for encoding and decoding in a Node environment, for greater performance.
 - It uses [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView) under the hood for reading and writing with great performance.
 - It has no actual unsafe stuff, all buffers are zeroed.
-- It only support encodings written in lowercase (e.g. `Utf8` or `UTF8` are invalid).
 - It assumes actually valid arguments are being passed to its methods.
 - It assumes actually valid strings are used when encoding and decoding, if your strings are invalid you may get different results between the browser and Node.
 - It exposes [DataView](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView)'s methods for reading and writing too, on top of Node's Buffer's.
