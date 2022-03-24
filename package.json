@@ -1,7 +1,7 @@
 {
   "name": "tiny-buffer",
   "description": "A tiny isomorphic implementation of a large subset of Node's Buffer.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
