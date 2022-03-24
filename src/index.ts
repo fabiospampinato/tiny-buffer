@@ -816,7 +816,7 @@ class Buffer extends Uint8Array {
     length = Math.min ( length, this.length - offset );
 
     const isUTF8 = ( encoding === undefined ) || encoding === 'utf8' || encoding === 'utf-8';
-    const stringChopped = string.slice ( 0, length ); // Potentially skipping some unnecessary decoding
+    const stringChopped = isUTF8 ? string.slice ( 0, length ) : string; // Potentially skipping some unnecessary decoding
     const bufferRaw = new Buffer ( stringChopped, encoding );
     const bufferChopped = isUTF8 ? utf8chop ( bufferRaw, length ) : bufferRaw; // Avoiding writing invalid code points
     const buffer = bufferChopped;
