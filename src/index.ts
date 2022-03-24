@@ -1,12 +1,12 @@
 
 /* IMPORT */
 
-import {isArrayBuffer, isArrayLike, isDataView, isNumber, isPlainObject, isSharedArrayBuffer, isString, isTypedArray, isUndefined} from '@fabiospampinato/is';
+import {isArrayLike, isDataView, isNumber, isPlainObject, isTypedArray} from '@fabiospampinato/is';
 import Latin1 from 'base256-encoding';
 import Hex from 'hex-encoding';
 import Base64 from 'radix64-encoding';
 import Utf8 from 'uint8-encoding';
-import {FAST_FOR_THRESHOLD} from './constants';
+import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
 import {utf8chop} from './utils';
 import {Encoding, Filler, Input, TypedArray, Serialized} from './types';
 
@@ -24,13 +24,13 @@ class Buffer extends Uint8Array {
   constructor ( input: SharedArrayBuffer, byteOffset?: number, byteLength?: number );
   constructor ( input: ArrayLike<number> );
   constructor ( input: Serialized );
-  constructor ( input: Input, option1?: unknown, option2?: unknown ) { //TODO: Optimize type checking
+  constructor ( input: Input, option1?: unknown, option2?: unknown ) {
 
-    if ( isNumber ( input ) ) {
+    if ( typeof input === 'number' ) {
 
       super ( input );
 
-    } else if ( isString ( input ) ) {
+    } else if ( typeof input === 'string' ) {
 
       const encoding = option1 || 'utf8';
 
@@ -64,7 +64,7 @@ class Buffer extends Uint8Array {
 
       }
 
-    } else if ( input instanceof ArrayBuffer || isArrayBuffer ( input ) || isSharedArrayBuffer ( input ) ) {
+    } else if ( input instanceof ArrayBuffer || ( HAS_SHARED_ARRAY_BUFFER && input instanceof SharedArrayBuffer ) ) {
 
       if ( isNumber ( option1 ) ) {
 
@@ -118,7 +118,7 @@ class Buffer extends Uint8Array {
 
     const buffer = new Buffer ( length );
 
-    if ( !isUndefined ( fill ) && fill !== 0 ) {
+    if ( fill !== undefined && fill !== 0 ) {
 
       return buffer.fill ( fill, 0, buffer.length, encoding );
 
@@ -708,11 +708,11 @@ class Buffer extends Uint8Array {
 
   fill ( value: Filler, start: number = 0, end: number = this.length, encoding?: Encoding ): this {
 
-    if ( isNumber ( value ) ) {
+    if ( typeof value === 'number' ) {
 
       return super.fill ( value, start, end );
 
-    } else if ( isString ( value ) ) { //TODO: Optimize this, it might be unnecessary to decode the whole string
+    } else if ( typeof value === 'string' ) { //TODO: Optimize this, it might be unnecessary to decode the whole string
 
       const buffer = Buffer.from ( value, encoding );
 
@@ -771,7 +771,7 @@ class Buffer extends Uint8Array {
 
   toString ( encoding: Encoding = 'utf8', start?: number, end?: number ): string {
 
-    if ( isNumber ( start ) && ( start !== 0 || ( isNumber ( end ) && end < this.length ) ) ) {
+    if ( typeof start === 'number' && ( start !== 0 || ( typeof end === 'number' && end < this.length ) ) ) {
 
       const buffer = super.subarray ( start, end );
 
@@ -815,7 +815,7 @@ class Buffer extends Uint8Array {
 
     length = Math.min ( length, this.length - offset );
 
-    const isUTF8 = !isString ( encoding ) || encoding === 'utf8' || encoding === 'utf-8';
+    const isUTF8 = ( encoding === undefined ) || encoding === 'utf8' || encoding === 'utf-8';
     const stringChopped = string.slice ( 0, length ); // Potentially skipping some unnecessary decoding
     const bufferRaw = new Buffer ( stringChopped, encoding );
     const bufferChopped = isUTF8 ? utf8chop ( bufferRaw, length ) : bufferRaw; // Avoiding writing invalid code points
