@@ -926,6 +926,12 @@ class Buffer extends Uint8Array {
 
   }
 
+  toUint8Array (): Uint8Array {
+
+    return new Uint8Array ( this.buffer, this.byteOffset, this.byteLength );
+
+  }
+
   write ( string: string, offset: number = 0, length: number = this.length - offset, encoding?: Encoding ): number {
 
     length = Math.min ( length, this.length - offset );
