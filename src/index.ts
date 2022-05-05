@@ -8,7 +8,7 @@ import Utf8 from 'uint8-encoding';
 import Utf16le from 'utf16le-encoding';
 import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
 import {castEncoding, swap, utf8chop, utf16chop} from './utils';
-import {Encoding, Filler, Input, TypedArray, Serialized} from './types';
+import type {Encoding, Filler, Input, TypedArray, Serialized} from './types';
 
 /* MAIN */
 

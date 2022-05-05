@@ -1,5 +1,5 @@
-const B = require('../').Buffer
-const test = require('tape')
+import B from '../index.js'
+import test from 'tape'
 
 test('base64: ignore whitespace', function (t) {
   const text = '\n   YW9ldQ==  '

@@ -13,4 +13,4 @@ type TypedArray = Int8Array | Uint8Array | Uint8ClampedArray | Int16Array | Uint
 
 /* EXPORT */
 
-export {Encoding, Filler, Input, Serialized, TypedArray};
+export type {Encoding, Filler, Input, Serialized, TypedArray};

@@ -1,5 +1,5 @@
-const B = require('../').Buffer
-const test = require('tape')
+import B from '../index.js'
+import test from 'tape'
 
 test('buffer.compare', function (t) {
   const b = new B(1).fill('a')

@@ -1,6 +1,6 @@
-const B = require('../').Buffer
-const isBuffer = require('is-buffer')
-const test = require('tape')
+import B from '../index.js'
+import isBuffer from 'is-buffer'
+import test from 'tape'
 
 test('is-buffer tests', function (t) {
   t.ok(isBuffer(new B(4)), 'new Buffer(4)')

@@ -1,5 +1,5 @@
-const B = require('../').Buffer
-const test = require('tape')
+import B from '../index.js'
+import test from 'tape'
 
 test('utf8 buffer to base64', function (t) {
   t.equal(

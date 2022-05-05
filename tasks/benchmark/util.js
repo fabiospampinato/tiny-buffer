@@ -1,6 +1,6 @@
-var benchmark = require('benchmark')
+import benchmark from 'benchmark'
 
-exports.suite = function () {
+function suite () {
   var suite = new benchmark.Suite()
   process.nextTick(function () {
     suite
@@ -17,3 +17,7 @@ exports.suite = function () {
   })
   return suite
 }
+
+var util = {suite}
+
+export default util

@@ -1,5 +1,5 @@
-const B = require('../').Buffer
-const test = require('tape')
+import B from '../index.js'
+import test from 'tape'
 
 test('buffer.toJSON', function (t) {
   const data = [1, 2, 3, 4]

@@ -2,7 +2,7 @@
 /* IMPORT */
 
 import {DEFAULT_ENCODING} from './constants';
-import {Encoding} from './types';
+import type {Encoding} from './types';
 
 /* MAIN */
 

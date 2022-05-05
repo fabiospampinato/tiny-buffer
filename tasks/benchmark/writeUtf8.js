@@ -1,5 +1,6 @@
-var TinyBuffer = require('../').Buffer // (this module)
-var util = require('./util')
+import TinyBuffer from '../index.js'
+import util from './util.js'
+
 var suite = util.suite()
 
 var LENGTH = 9

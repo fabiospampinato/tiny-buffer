@@ -1,5 +1,5 @@
-const B = require('../').Buffer
-const test = require('tape')
+import B from '../index.js'
+import test from 'tape'
 
 test('Buffer.isEncoding', function (t) {
   // t.equal(B.isEncoding('HEX'), true)
