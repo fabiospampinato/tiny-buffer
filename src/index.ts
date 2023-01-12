@@ -4,6 +4,7 @@
 import Latin1 from 'base256-encoding';
 import Hex from 'hex-encoding';
 import Base64 from 'radix64-encoding';
+import Base64url from 'radix64url-encoding';
 import Utf8 from 'uint8-encoding';
 import Utf16le from 'utf16le-encoding';
 import {FAST_FOR_THRESHOLD, HAS_SHARED_ARRAY_BUFFER} from './constants';
@@ -49,6 +50,12 @@ class Buffer extends Uint8Array {
       } else if ( encoding === 'base64' ) {
 
         const buffer = Base64.decode ( input );
+
+        super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
+
+      } else if ( encoding === 'base64url' ) {
+
+        const buffer = Base64url.decode ( input );
 
         super ( buffer.buffer, buffer.byteOffset, buffer.byteLength );
 
@@ -185,6 +192,10 @@ class Buffer extends Uint8Array {
 
         return Base64.decode ( input ).byteLength;
 
+      } else if ( encoding === 'base64url' ) {
+
+        return Base64url.decode ( input ).byteLength;
+
       } else if ( encoding === 'hex' ) {
 
         return Math.ceil ( input.length / 2 );
@@ -289,7 +300,7 @@ class Buffer extends Uint8Array {
 
   static isEncoding ( value: unknown ): value is Encoding {
 
-    return value === 'ascii' || value === 'base64' || value === 'binary' || value === 'hex' || value === 'latin1' || value === 'utf8' || value === 'utf-8' || value === 'utf16le' || value === 'utf-16le' || value === 'ucs2' || value === 'ucs-2';
+    return value === 'ascii' || value === 'base64' || value === 'base64url' || value === 'binary' || value === 'hex' || value === 'latin1' || value === 'utf8' || value === 'utf-8' || value === 'utf16le' || value === 'utf-16le' || value === 'ucs2' || value === 'ucs-2';
 
   }
 
@@ -901,6 +912,10 @@ class Buffer extends Uint8Array {
       } else if ( encoding === 'base64' ) {
 
         return Base64.encode ( this );
+
+      } else if ( encoding === 'base64url' ) {
+
+        return Base64url.encode ( this );
 
       } else if ( encoding === 'hex' ) {
 

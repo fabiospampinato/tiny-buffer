@@ -26,6 +26,7 @@
     "base256-encoding": "^2.0.1",
     "hex-encoding": "^2.0.0",
     "radix64-encoding": "^2.0.1",
+    "radix64url-encoding": "^1.0.0",
     "uint8-encoding": "^2.0.0",
     "utf16le-encoding": "^2.0.1"
   },
